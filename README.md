@@ -10,7 +10,6 @@ Decoupled annotations for [Typst](https://typst.app/).
 <table>
 <tr>
   <td>
-  <sub>
 
 ```typst
 #lorem(10)
@@ -24,15 +23,38 @@ Decoupled annotations for [Typst](https://typst.app/).
 #deixis-footnote-body(id: <note2>)[Note 2.]
 ```
 
-  </sub>
   </td>
   <td>
-  <img src="assets/gallery/footnote.svg" width="300px" alt="Inline mark and footnote">
+  <img src="assets/gallery/footnote.svg" width="400px" alt="Inline mark and footnote example">
   </td>
 </tr>
 <tr>
   <td colspan="2" style='text-align:center; vertical-align:middle'>Inline mark + Footnote</td>
 </tr>
+
+<tr>
+  <td>
+
+```typst
+#lorem(10)
+#deixis-endnote[Note 1.]
+#lorem(10)
+#deixis-endnote[This is a marked text][Note 2.].
+#lorem(10)
+
+// print endnote bodies
+#deixis-print-endnotes()
+```
+
+  </td>
+  <td>
+  <img src="assets/gallery/endnote.svg" width="400px" alt="Endnote example">
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style='text-align:center; vertical-align:middle'>Endnote</td>
+</tr>
+
 </table>
 
 ## Installation
