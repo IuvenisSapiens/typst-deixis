@@ -1,4 +1,4 @@
-#set page(width: 400pt, height: auto, margin: 0pt)
+#set page(width: 300pt, height: auto, margin: 0pt)
 
 #import "../src/lib.typ": *
 #show: deixis-setup-notes
@@ -7,14 +7,20 @@
 #show: show-demo
 
 ```preview
-//| sandbox-mode: "inline", height: 300pt, margin: (x: 2cm, rest: 1em)
+//| sandbox-mode: "inline", height: 200pt, margin: (x: 2cm, rest: 1em)
 
 #lorem(10)
-#deixis-endnote[Note 1.]
+#deixis-margin-note[Note 1.]
 #lorem(10)
-#deixis-endnote[This is a marked text][Note 2.].
+#deixis-margin-note[This is a marked text][Note 2. #lorem(6)].
 #lorem(10)
-
-// print endnote bodies
-#deixis-print-endnotes()
+#deixis-set(
+  stroke: green,
+  fill: green.transparentize(95%),
+  container-func: (margin-note: rect)
+)
+#deixis-margin-note(
+  link: "right-angle",
+)[This is a marked text][Note 3.].
+#lorem(20)
 ```

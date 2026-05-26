@@ -706,9 +706,9 @@
     )
   }
 
-  let mark = render-mark(deixis-auto-id)
-  let body-out = render-body(deixis-auto-id)
-  [#mark#body-out]
+  let m = render-mark(deixis-auto-id)
+  let b = render-body(deixis-auto-id)
+  [#m#b]
 }
 
 #let _deixis-inset-notes-overlay() = context {

@@ -5,58 +5,6 @@ Decoupled annotations for [Typst](https://typst.app/).
 
 `deixis` is a unified layout engine for footnotes, endnotes, margin notes, inset notes, inline highlights, and spatial annotations.
 
-## Examples
-
-<table>
-<tr>
-  <td>
-
-```typst
-#lorem(10)
-#deixis-inline-mark(id: <note1>, marker: lorem(2))
-#lorem(10)
-#deixis-inline-mark(id: <note2>)[This is a marked text].
-#lorem(10)
-
-// link marks to bodies using unique ids
-#deixis-footnote-body(id: <note1>)[Note 1.]
-#deixis-footnote-body(id: <note2>)[Note 2.]
-```
-
-  </td>
-  <td>
-  <img src="assets/gallery/footnote.svg" width="400px" alt="Inline mark and footnote example">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style='text-align:center; vertical-align:middle'>Inline mark + Footnote</td>
-</tr>
-
-<tr>
-  <td>
-
-```typst
-#lorem(10)
-#deixis-endnote[Note 1.]
-#lorem(10)
-#deixis-endnote[This is a marked text][Note 2.].
-#lorem(10)
-
-// print endnote bodies
-#deixis-print-endnotes()
-```
-
-  </td>
-  <td>
-  <img src="assets/gallery/endnote.svg" width="400px" alt="Endnote example">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style='text-align:center; vertical-align:middle'>Endnote</td>
-</tr>
-
-</table>
-
 ## Installation
 
 ### From Typst Universe
@@ -96,12 +44,130 @@ No `deixis` functionality can be used before applying this setup show rule:
 #show: deixis-setup-notes
 ```
 
+### Examples
+
+<table>
+<tr>
+  <td width="50%">
+  <sub>
+
+```typst
+#lorem(10)
+#deixis-footnote[A plain footnote.]
+#lorem(10)
+#deixis-footnote(marker: lorem(2))[A note with long marker and body content.]
+#lorem(10)
+#deixis-footnote(
+  marker-style: (body: it => text(fill: orange, super(it))),
+  stroke: red,
+  fill: red.transparentize(95%),
+  container-func: deixis-alert-container,
+)[A marked text][A colorful footnote.].
+```
+
+  </sub>
+  </td>
+  <td>
+  <img src="assets/gallery/footnote.svg" width="100%" alt="Inline mark and footnote example">
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style='text-align:center; vertical-align:middle'>Footnote</td>
+</tr>
+
+<tr>
+  <td width="50%">
+  <sub>
+
+```typst
+#lorem(10)
+#deixis-endnote[A plain endnote.]
+#lorem(10)
+#deixis-endnote(
+  stroke: maroon,
+  fill: maroon.transparentize(90%),
+)[
+  Endnotes use a different counter
+][
+  They default to the `"endnote"` series.
+].
+#lorem(10)
+// print endnote bodies
+#deixis-print-endnotes()
+
+#lorem(5)
+#deixis-endnote[
+  ```typst #deixis-print-endnotes()``` flushes out unprinted notes _(and it can do more than that)_.
+]
+#deixis-print-endnotes()
+```
+
+  </sub>
+  </td>
+  <td>
+  <img src="assets/gallery/endnote.svg" width="100%" alt="Endnote example">
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style='text-align:center; vertical-align:middle'>Endnote</td>
+</tr>
+
+<tr>
+  <td width="50%">
+  <sub>
+
+```typst
+#lorem(10)
+#deixis-margin-note[A plain margin note.]
+#lorem(10)
+#deixis-margin-note(
+  stroke: teal,
+  fill: teal.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)[][A colorful margin note.]
+#deixis-margin-note(
+  stroke: green,
+  fill: green.transparentize(95%),
+  link: "right-angle",
+  mark-align: (mark: horizon, body: horizon),
+  container-func: rect,
+)[This is a marked text][A left side note, aligned horizontally to its mark.].
+#lorem(10)
+#deixis-margin-note(
+  inline-mode: "highlight",
+  stroke: (link: stroke(paint: orange, dash: "dashed"), body: orange),
+  fill: (mark: orange.transparentize(80%), body: orange.transparentize(95%)),
+  side: right,
+  link: "curve",
+  container-func: rect,
+)[Another marked text][A note with different styling.].
+#deixis-margin-note(
+  fill: blue.lighten(85%),
+  container-func: (body, ..args) => stickybox(body, fill: args.at("fill"), rotation: args.at("rotation", default: 0deg)),
+  rotation: 10deg,  // all unknown named parameters are passed to container-func
+)[Sticky note.]
+```
+
+  </sub>
+  </td>
+  <td>
+  <img src="assets/gallery/margin-note.svg" width="100%" alt="Endnote example">
+  </td>
+</tr>
+<tr>
+  <td colspan="2" style='text-align:center; vertical-align:middle'>Margin note</td>
+</tr>
+
+</table>
+
 ## Acknowledgements
 
 This package has some similar functionalities inspired by existing packages:
-- [drafting](https://github.com/ntjess/typst-drafting): Margin note, but without numbering.
-- [marge](https://github.com/EpicEricEE/typst-marge): Margin note, but without links.
-- [pinit](https://github.com/OrangeX4/typst-pinit): Region annotation and inset note.
+- [drafting](https://github.com/ntjess/typst-drafting): Margin note, without numbering.
+- [marge](https://github.com/EpicEricEE/typst-marge): Margin note, without links.
+- [pinit](https://github.com/OrangeX4/typst-pinit): Equivalent to region mark and inset note, without numbering.
+- [Rik's endnote](https://forum.typst.app/t/an-endnotes-implementation-with-headings-and-cross-referencing/7760): An implementation of endnote.
 
 ## License
 

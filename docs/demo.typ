@@ -113,7 +113,7 @@
   let margin = merged-overrides.at("margin", default: margin)
   let height = merged-overrides.at("height", default: height)
 
-  set text(font: "Linux Libertine", size: 15pt)  // 10pt
+  set text(font: "Linux Libertine", size: 10pt)
 
   let preamble = preamble + "
   #import \"../src/lib.typ\": *
