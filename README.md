@@ -46,10 +46,15 @@ No `deixis` functionality can be used before applying this setup show rule:
 
 ### Examples
 
-<table>
-<tr>
-  <td width="50%">
-  <sub>
+#### Footnote
+
+<div align="center">
+<img src="assets/gallery/footnote.svg" width="500px" alt="Footnote example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+<sub>
 
 ```typst
 #lorem(10)
@@ -65,19 +70,18 @@ No `deixis` functionality can be used before applying this setup show rule:
 )[A marked text][A colorful footnote.].
 ```
 
-  </sub>
-  </td>
-  <td width="50%">
-  <img src="assets/gallery/footnote.svg" width="500px" alt="Footnote example">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style='text-align:center; vertical-align:middle'>Footnote</td>
-</tr>
+</sub>
+</details>
 
-<tr>
-  <td width="50%">
-  <sub>
+#### Endnote
+
+<div align="center">
+<img src="assets/gallery/endnote.svg" width="500px" alt="Endnote example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+<sub>
 
 ```typst
 #lorem(10)
@@ -102,19 +106,19 @@ No `deixis` functionality can be used before applying this setup show rule:
 #deixis-print-endnotes()
 ```
 
-  </sub>
-  </td>
-  <td width="50%">
-  <img src="assets/gallery/endnote.svg" width="500px" alt="Endnote example">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style='text-align:center; vertical-align:middle'>Endnote</td>
-</tr>
+</sub>
+</details>
 
-<tr>
-  <td width="50%">
-  <sub>
+#### Margin note
+
+<div align="center">
+<img src="assets/gallery/margin-note.svg" width="500px" alt="Margin note example">
+</div>
+
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+<sub>
 
 ```typst
 #lorem(10)
@@ -149,17 +153,8 @@ No `deixis` functionality can be used before applying this setup show rule:
 )[Sticky note.]
 ```
 
-  </sub>
-  </td>
-  <td width="50%">
-  <img src="assets/gallery/margin-note.svg" width="500px" alt="Margin note example">
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style='text-align:center; vertical-align:middle'>Margin note</td>
-</tr>
-
-</table>
+</sub>
+</details>
 
 ## Acknowledgements
 
