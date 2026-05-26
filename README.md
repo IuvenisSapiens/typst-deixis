@@ -49,7 +49,7 @@ No `deixis` functionality can be used before applying this setup show rule:
 #### Inline Mark and Inline Note
 
 <div align="center">
-<img src="assets/gallery/footnote.svg" width="500px" alt="Inline mark and note example">
+<img src="assets/gallery/inline-note.svg" width="500px" alt="Inline mark and note example">
 </div>
 
 <details>
