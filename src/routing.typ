@@ -20,7 +20,9 @@
   let actual-box-h = t-val * 0.85
 
   if not has-inline-box {
-    if mark-type == "phantom" or marker-str in ("", none) {
+    if marker-str == none {
+      // do nothing
+    } else if mark-type == "phantom" or marker-str == "" {
       return place(dx: mark-x, dy: box-y, line(start: (0pt, 0pt), end: (0pt, actual-box-h), stroke: stroke))
     } else if mark-type == "inline" {
       return place(dx: box-x, dy: box-y, box(

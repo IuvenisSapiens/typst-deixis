@@ -54,7 +54,6 @@ No `deixis` functionality can be used before applying this setup show rule:
 
 <details>
 <summary><b>Show Typst Source Code</b></summary>
-<sub>
 
 ```typst
 #lorem(10)
@@ -70,7 +69,6 @@ No `deixis` functionality can be used before applying this setup show rule:
 )[A marked text][A colorful footnote.].
 ```
 
-</sub>
 </details>
 
 #### Endnote
@@ -81,7 +79,6 @@ No `deixis` functionality can be used before applying this setup show rule:
 
 <details>
 <summary><b>Show Typst Source Code</b></summary>
-<sub>
 
 ```typst
 #lorem(10)
@@ -106,10 +103,9 @@ No `deixis` functionality can be used before applying this setup show rule:
 #deixis-print-endnotes()
 ```
 
-</sub>
 </details>
 
-#### Margin note
+#### Margin Note
 
 <div align="center">
 <img src="assets/gallery/margin-note.svg" width="500px" alt="Margin note example">
@@ -118,9 +114,10 @@ No `deixis` functionality can be used before applying this setup show rule:
 
 <details>
 <summary><b>Show Typst Source Code</b></summary>
-<sub>
 
 ```typst
+#deixis-set(margin-layout: "adaptive")
+
 #lorem(10)
 #deixis-margin-note[A plain margin note.]
 #lorem(10)
@@ -145,15 +142,90 @@ No `deixis` functionality can be used before applying this setup show rule:
   side: right,
   link: "curve",
   container-func: rect,
-)[Another marked text][A note with different styling.].
+)[Another highlighted text][A note with different styling.].
+
+#import "@preview/colorful-boxes:1.4.3": stickybox
+
+#lorem(3)
 #deixis-margin-note(
   fill: blue.lighten(85%),
   container-func: (body, ..args) => stickybox(body, fill: args.at("fill"), rotation: args.at("rotation", default: 0deg)),
   rotation: 10deg,  // all unknown named parameters are passed to container-func
 )[Sticky note.]
+#lorem(5)
+#deixis-margin-note(
+  marker: "",
+  stroke: red,
+  fill: red.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)[A note with empty marker.]
+#lorem(5)
 ```
 
-</sub>
+</details>
+
+#### Inset Note
+
+<div align="center">
+<img src="assets/gallery/inset-note.svg" width="500px" alt="Inset note example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+
+```typst
+#lorem(10)
+#deixis-inset-note(
+  stroke: orange,
+  fill: yellow.transparentize(90%),
+  link: "curve",
+  link-ports: (mark: right, body: bottom),
+  link-marks: "both",
+  placement: body => deixis-absolute-place(top + right, dx: -5pt, dy: 5pt, body),
+)[A marked text][A placed note].
+
+- #lorem(2)
+- #lorem(3)#deixis-inset-note(
+  marker: none,
+  stroke: red,
+  fill: red.transparentize(95%),
+  link: "straight-line",
+  link-marks: "mark",
+  width: 4.5cm,
+  dx: 1em,
+  dy: 0pt,
+  anchor: (mark: right + horizon, body: left + horizon)
+)[Alternatively, use `dx`, `dy`, and `anchor` to align the body.]
+
+#import "@preview/meander:0.4.2"
+#import "@preview/colorful-boxes:1.4.3": outline-colorbox
+
+#let note-body = deixis-inset-note-body(
+  id: <meander>,
+  width: 60%,
+  stroke: purple,
+  fill: purple.transparentize(95%),
+  container-func: (body, ..args) => outline-colorbox(body,
+    color: (stroke: args.at("stroke").paint, fill: args.at("fill")),
+    stroke: args.at("stroke").thickness,
+    title: args.at("title", default: [Note])),
+  title: [Inset Note],
+)[A _true_ inset note.]
+#meander.reflow({
+  import meander: *
+
+  placed(horizon + right, note-body)
+  container()
+  content[
+    #set par(justify: true)
+    #lorem(15)
+    #deixis-inline-mark(id: <meander>)  // linked via id
+    #lorem(18)
+  ]
+})
+```
+
 </details>
 
 ## Acknowledgements
@@ -162,7 +234,7 @@ This package has some similar functionalities inspired by existing packages:
 - [drafting](https://github.com/ntjess/typst-drafting): Margin note, without numbering.
 - [marge](https://github.com/EpicEricEE/typst-marge): Margin note, without links.
 - [pinit](https://github.com/OrangeX4/typst-pinit): Equivalent to region mark and inset note, without numbering.
-- [Rik's endnote](https://forum.typst.app/t/an-endnotes-implementation-with-headings-and-cross-referencing/7760): An implementation of endnote.
+- [Rik's endnote](https://forum.typst.app/t/an-endnotes-implementation-with-headings-and-cross-referencing/7760): An early attempt to implement endnote.
 
 ## License
 

@@ -1258,32 +1258,43 @@
 }
 
 /// Places content at a specific exact absolute coordinate on the page ignoring page margins.
-#let deixis-absolute-place(
-  dx: 0pt,
-  dy: 0pt,
-  content,
-) = {
+#let deixis-absolute-place(..args) = {
+  let pos-args = args.pos()
+  let align-val = none
+  let content = none
+
+  if pos-args.len() == 1 {
+    content = pos-args.first()
+  } else if pos-args.len() == 2 {
+    align-val = pos-args.first()
+    content = pos-args.last()
+  } else {
+    panic("deixis: deixis-absolute-place expects 1 or 2 positional arguments: [alignment], content.")
+  }
+
+  let dx = args.named().at("dx", default: 0pt)
+  let dy = args.named().at("dy", default: 0pt)
+
   // double place trick to avoid infinite layout loop
   place(top + left, context {
-    let pos = here().position()
+    let page-pos = here().position()
 
     let p-w = if type(page.width) == length { page.width } else { 21cm }
     let p-h = if type(page.height) == length { page.height } else { 29.7cm }
 
-    let resolve-dim(val, max-val) = {
-      if type(val) == ratio { val * max-val } else if type(val) == relative { val.length + val.ratio * max-val } else {
-        val
-      }
-    }
-
-    let abs-dx = resolve-dim(dx, p-w)
-    let abs-dy = resolve-dim(dy, p-h)
-
     place(
       top + left,
-      dx: abs-dx - pos.x,
-      dy: abs-dy - pos.y,
-      content,
+      dx: -page-pos.x,
+      dy: -page-pos.y,
+      box(
+        width: p-w,
+        height: p-h,
+        if align-val == none {
+          place(dx: dx, dy: dy, content)
+        } else {
+          place(align-val, dx: dx, dy: dy, content)
+        }
+      )
     )
   })
 }

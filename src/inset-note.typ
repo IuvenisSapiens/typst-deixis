@@ -209,7 +209,7 @@
     })
 
     if type(placement) == function {
-      placement(final-rendered)
+      box(placement(final-rendered))
     } else if dx != none and dy != none {
       deixis-place-anchored(
         final-rendered,
@@ -401,7 +401,7 @@
     })
 
     if type(placement) == function {
-      [#placement(final-rendered)]
+      box[#placement(final-rendered)]
     } else if dx != none and dy != none {
       [#deixis-place-anchored(
         final-rendered,
