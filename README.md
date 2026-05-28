@@ -30,8 +30,7 @@ Decoupled annotations for [Typst](https://typst.app/).
 
 ### From Typst Universe
 
-This package is yet available in the Typst Universe.
-When it is officially released, you will be able to download and use it by simply adding the following line to your document.
+This package is available in the Typst Universe, you can download and use it by simply adding the following line to your document.
 
 ```typst
 #import "@preview/deixis:0.1.0": *
@@ -68,7 +67,7 @@ No `deixis` functionality can be used before applying this setup show rule:
 > [!WARNING]
 >
 > `deixis` uses the page foreground/background for rendering notes.
-> If you have your custom foreground/background, it need to be set before `#show: deixis-setup-notes`.
+> If you have your custom foreground/background, it needs to be set before `#show: deixis-setup-notes`.
 
 #### Anatomy of a Note
 
