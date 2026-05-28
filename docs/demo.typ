@@ -240,7 +240,6 @@
   } else {
     example-box(make-paper(preview-content), breakable: false)
   }
-  // let preview-ui = example-box(make-paper(preview-content), breakable: false)
 
   if layout == "horizontal" {
     std.layout(bounds => {
@@ -260,6 +259,12 @@
         )
       }
     })
+    // grid(
+    //   columns: (1fr, 1fr),
+    //   gutter: 5pt,
+    //   source-ui,
+    //   preview-ui,
+    // )
   } else if layout == "vertical" {
     grid(columns: 1fr, gutter: 5pt, source-ui, preview-ui)
   } else {

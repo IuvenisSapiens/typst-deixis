@@ -2,7 +2,11 @@
     <path class="typst-shape" fill="#ffffff" fill-rule="nonzero" d="M 0 0v 240 h 300 v -240 Z "/>
     <g>
         <g class="typst-group">
-            <g/>
+            <g>
+                <g class="typst-group">
+                    <g/>
+                </g>
+            </g>
         </g>
         <g class="typst-group">
             <g>
@@ -406,6 +410,9 @@
         </g>
         <g class="typst-group">
             <g>
+                <g class="typst-group">
+                    <g/>
+                </g>
                 <g class="typst-group">
                     <g>
                         <g class="typst-group">

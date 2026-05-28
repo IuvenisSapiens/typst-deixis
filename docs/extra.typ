@@ -138,6 +138,7 @@
   ///   link: "curve",
   ///   link-waypoints: ((10pt, 40pt), (10pt, -10pt), (10pt, 20pt), (10pt, -20pt)),
   ///   dx: 6em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// 
@@ -149,6 +150,7 @@
   ///   link: "right-angle",
   ///   link-waypoints: ((40pt, 40pt), "curve", ("body-top-center", -25pt)),
   ///   dx: 6em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// 
@@ -164,6 +166,7 @@
   ///   link: "right-angle",
   ///   link-ports: (mark: bottom, body: top),
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// 

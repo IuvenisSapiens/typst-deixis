@@ -242,6 +242,7 @@
   /// ```example
   /// #deixis-inset-note(
   ///   stroke: (mark: red, body: blue),
+  ///   layer: "flow",
   /// )[A note with red mark stroke.][And blue body stroke.]
   /// ```
   ///
@@ -253,6 +254,7 @@
   /// #deixis-inset-note(
   ///   stroke: none,
   ///   fill: (mark: red, body: blue),
+  ///   layer: "flow",
   /// )[A note with red mark fill.][And blue body fill.]
   /// ```
   ///
@@ -265,6 +267,7 @@
   ///   stroke: yellow,
   ///   fill: yellow.transparentize(95%),
   ///   radius: (mark: 0pt, body: 1em),
+  ///   layer: "flow",
   /// )[A note with `0pt` mark radius.][And `1em` body radius.]
   /// ```
   ///
@@ -281,6 +284,7 @@
   ///   fill: green.transparentize(95%),
   ///   link: "straight-line",
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// - `"right-angle"`: Routes the link orthogonally (moving only horizontally and vertically) and smooths the turns with rounded corners (fillets).
@@ -291,6 +295,7 @@
   ///   fill: green.transparentize(95%),
   ///   link: "right-angle",
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// - `"chamfer"`: Similar to `"right-angle"`, but cuts the corners with diagonal straight lines (bevels) instead of rounding them.
@@ -301,6 +306,7 @@
   ///   fill: green.transparentize(95%),
   ///   link: "chamfer",
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// - `"curve"`: Draws a smooth *Weighted Bessel Spline*.
@@ -311,6 +317,7 @@
   ///   fill: green.transparentize(95%),
   ///   link: "curve",
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   /// - `"ccr"`: Draws a *Centripetal Catmull-Rom* spline, which is more stable compared to other curves and less prone to unnatural loops or aggressive bulges.
@@ -333,6 +340,7 @@
   ///   link: "straight-line",
   ///   link-marks: "both",
   ///   dx: 4em, dy: 3em,
+  ///   layer: "flow",
   /// )[Note mark.][Note body.]
   /// ```
   ///
@@ -658,10 +666,10 @@
 /// // Real usage: (cannot be used in example environment)
 /// // #set page(header: adaptive-header)
 ///
-/// Let's create some test notes
+/// We can do that, Rik
 /// #deixis-endnote[Test note 1 #lorem(10)]
 /// #deixis-endnote[Test note 2 #lorem(10)]
-/// #deixis-endnote[Test note 3 #lorem(10)]
+/// #deixis-endnote[Test note 3 #lorem(10)].
 ///
 /// #deixis-print-endnotes()
 /// ```

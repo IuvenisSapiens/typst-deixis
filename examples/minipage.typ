@@ -13,7 +13,6 @@ Notice the numbers#deixis-footnote[A page-level footnote.].
   Minipages are very handy for creating locally rendered notes
   #deixis-footnote[A block-level footnote.]
   #deixis-margin-note[A block-level margin note.].
-
 ]
 
 #deixis-block(

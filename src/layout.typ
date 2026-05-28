@@ -68,10 +68,9 @@
   overflowed-r: false,
   strategy: auto,
 ) = {
-  assert(
-    strategy in ("strict", "nearest", auto),
-    message: "_deixis-resolve-side: strategy must be 'strict', 'nearest', or auto.",
-  )
+  if strategy not in ("strict", "nearest", auto) {
+    panic("_deixis-resolve-side: strategy must be 'strict', 'nearest', or auto.")
+  }
   let actual-strategy = if strategy == auto { "nearest" } else { strategy }
 
   let l-valid = l-space-abs >= min-margin-width
@@ -1106,8 +1105,8 @@
   pin: none,
 ) = context {
   let cur-pos = here().position()
-  let target_x = cur-pos.x
-  let target_y = cur-pos.y
+  let target-x = cur-pos.x
+  let target-y = cur-pos.y
 
   let a-target = if type(anchor) == dictionary {
     anchor.at("target", default: anchor.at("mark", default: bottom + right))
@@ -1206,11 +1205,11 @@
     if current-page == first-page { min-y -= deixis-utils.resolve-len(reg-pad.top) }
     if current-page == last-page { max-y += deixis-utils.resolve-len(reg-pad.bottom) }
 
-    target_x = max-x
-    if in-left { target_x = min-x } else if in-center { target_x = (min-x + max-x) / 2.0 }
+    target-x = max-x
+    if in-left { target-x = min-x } else if in-center { target-x = (min-x + max-x) / 2.0 }
 
-    target_y = max-y
-    if in-top { target_y = min-y } else if in-horizon { target_y = (min-y + max-y) / 2.0 }
+    target-y = max-y
+    if in-top { target-y = min-y } else if in-horizon { target-y = (min-y + max-y) / 2.0 }
   } else if internal-id != none {
     let mark-lbl = std.label("deixis-mark-" + str(internal-id))
     let elems = query(selector(mark-lbl))
@@ -1240,23 +1239,23 @@
       let min-y = ey - (marker-height * 0.8)
       let max-y = ey + (marker-height * 0.2)
 
-      target_x = max-x
-      if in-left { target_x = min-x } else if in-center { target_x = (min-x + max-x) / 2.0 }
+      target-x = max-x
+      if in-left { target-x = min-x } else if in-center { target-x = (min-x + max-x) / 2.0 }
 
-      target_y = max-y
-      if in-top { target_y = min-y } else if in-horizon { target_y = (min-y + max-y) / 2.0 }
+      target-y = max-y
+      if in-top { target-y = min-y } else if in-horizon { target-y = (min-y + max-y) / 2.0 }
     }
   }
 
-  let offset_x = target_x - cur-pos.x + dx
-  let offset_y = target_y - cur-pos.y + dy
+  let offset-x = target-x - cur-pos.x + dx
+  let offset-y = target-y - cur-pos.y + dy
 
   let size = measure(body)
-  if b-right { offset_x -= size.width } else if b-center { offset_x -= size.width / 2.0 }
+  if b-right { offset-x -= size.width } else if b-center { offset-x -= size.width / 2.0 }
 
-  if b-bottom { offset_y -= size.height } else if b-horizon { offset_y -= size.height / 2.0 }
+  if b-bottom { offset-y -= size.height } else if b-horizon { offset-y -= size.height / 2.0 }
 
-  place(box(place(top + left, dx: offset_x, dy: offset_y, body)))
+  place(box(place(top + left, dx: offset-x, dy: offset-y, body)))
 }
 
 /// Places content at a specific exact absolute coordinate on the page ignoring page margins.

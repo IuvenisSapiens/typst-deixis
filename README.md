@@ -10,12 +10,11 @@ Decoupled annotations for [Typst](https://typst.app/).
 
 `deixis` is a unified layout engine for footnotes, endnotes, margin notes, inset notes, inline highlights, and spatial annotations.
 
-> _under development, expect bugs_
-
 ## Main Features
 
 - **Marks:**
   - [Inline mark](#inline-mark-and-inline-note)
+  - Phantom mark _(invisible inline mark)_
   - [Region mark](#pin-and-region-mark)
 - **Notes:**
   - [Inline note](#inline-mark-and-inline-note)
@@ -301,7 +300,17 @@ is added after the label ```typst #box()<split>```.
 </tr>
 <tr>
   <td align="center">
+  <sub>Page 1</sub>
+  </td>
+</tr>
+<tr>
+  <td align="center">
 <img src="assets/gallery/margin-note-spillover-2.svg" width="500px" alt="Margin note spillover example - page 2">
+  </td>
+</tr>
+<tr>
+  <td align="center">
+  <sub>Page 2</sub>
   </td>
 </tr>
 </table>
@@ -416,19 +425,75 @@ Inset notes can be placed
 
 ### Pin and Region Mark
 
+#### Pin
+
+To create region marks, `deixis` relies on `#deixis-pin`, an idea similar to the [pinit](https://github.com/OrangeX4/typst-pinit) package.
+A region is defined as the minimum rectangle covering an array of input pins, taking padding into account.
+
+Each pin holds its own `padding`, defaults to `"text"`, which means to pad the region around it similar to an inline mark with `inline-mode: "box"`.
+
+<div align="center">
+<img src="assets/gallery/region-mark-cat-table-1.svg" width="500px" alt="Pin placement and region mark example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+
+````typst
+Breakdown of standard #deixis-pin("feline-l")feline#deixis-pin("feline-r") architecture and performance metrics:
+#deixis-region-mark(
+  stroke: none,
+  fill: yellow.transparentize(50%),
+  radius: 0pt,
+  pins: ("feline-l", "feline-r"),
+  layer: "background",
+)
+
+#{
+  set text(size: 0.8em)
+  figure(
+    table(
+      align: left + horizon,
+      columns: (auto, auto),
+
+      table.header([*Property*], [*Specification*]),
+      [\#legs], [4],
+      [Max speed], [#deixis-pin("tab-tl")48 km/h],
+      [Battery Life], [16--18 hours#deixis-pin("tab-br", padding: (bottom: 0.2em, right: 1em))],
+      [Fuel Source], [Tuna],
+      [Storage Capacity], [$infinity$]
+  ))
+}
+#deixis-footnote(
+  mark-type: "region",
+  marker-style: it => text(fill: blue, super(it)),
+  stroke: orange,
+  fill: orange.transparentize(95%),
+  pins: ("tab-tl", "tab-br"),
+)[Top performance achieved at #sym.tilde.basic#[]3:00 AM, must recharge under direct sunlight #emoji.sun.]
+````
+
+</details>
+
+#### Attach Pins
+
+`#deixis-attach` allows you to attach pins on a wrapped content by:
+- Providing a dictionary of pins and their attributes.
+- If no pins provided, it automatically attaches two pins, one on the top-left corner and one on the bottom-right corner, both with `0pt` padding.
+
 <table>
 <tr>
   <td width="50%">
 
 <div align="center">
-<img src="assets/gallery/region-mark-cat-1.svg" width="500px" alt="Region mark on equation and raw example">
+<img src="assets/gallery/region-mark-cat-1.svg" width="500px" alt="Attach pins on image example">
 </div>
 
   </td>
   <td width="50%">
 
 <div align="center">
-<img src="assets/gallery/region-mark-sigmoid-1.svg" width="500px" alt="Region mark on image example">
+<img src="assets/gallery/region-mark-sigmoid-1.svg" width="500px" alt="Attach pins on equation and raw example">
 </div>
 
   </td>
@@ -550,9 +615,81 @@ print(f"Probability:\n{probability}")
 
 </details>
 
+
+### Routing Links
+
+`deixis` provides margin note and inset note with a simple `link` drawing mechanism.
+You can use `link-waypoints`, `link-ports`, and `link-marks` to configure the link.
+
+<div align="center">
+<img src="assets/gallery/link-1.svg" width="500px" alt="Update parameters example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+
+````typst
+#deixis-margin-note(
+  stroke: blue + 0.5pt,
+  fill: blue.transparentize(95%),
+  link: "curve",
+  link-waypoints: (
+    (0pt, 20pt),
+    (50pt, 40pt),
+    (50pt, -50pt),
+    "right-angle",  // change link type
+    (60pt, 40pt),
+    "straight-line",
+  ),
+  link-marks: "body",
+  container-func: rect,
+)[][
+  Waypoints allow creating complicated links.
+]
+#deixis-margin-note(
+  inline-mode: "highlight",
+  stroke: red + 0.5pt,
+  fill: red.transparentize(95%),
+  link: "chamfer",
+  container-func: rect,
+)[
+  Margin links always exit up or down.
+][
+  *Fact:* The default margin links just follow auto-generated waypoints.
+]
+
+#v(70pt)
+#deixis-inset-note(
+  inline-mode: "highlight",
+  width: 120pt,
+  stroke: stroke(paint: green, dash: "densely-dotted"),
+  fill: green.transparentize(95%),
+  link: "ccr",
+  link-waypoints: (
+    // component anchor + alignment keywords
+    (80pt, "mark-right"),
+    (0pt, "body-right"),
+  ),
+  link-ports: (mark: right, body: right),
+  link-marks: "both",
+  layer: "flow",
+)[
+  Inset links give inline marks 3 link ports:\
+  `right, top, bottom`.
+][
+  Inset notes (and region marks) have 4 link ports:\
+  `left, right, top, bottom`.
+]
+````
+
+</details>
+
 ---
 
 ### Update Default Parameters
+
+Most of the parameters of a note function can be updated using `#deixis-set`.
+In fact, some parameters can only be updated this way.
 
 <div align="center">
 <img src="assets/gallery/update-params-1.svg" width="500px" alt="Update parameters example">
@@ -629,6 +766,9 @@ Test notes:
 </details>
 
 ### Counter and Series
+
+Each note belongs to a counter series.
+All `deixis` notes default to the `"default"` series except for `#deixis-endnote` which default to the `"endnote"` series.
 
 <div align="center">
 <img src="assets/gallery/counter-1.svg" width="500px" alt="Counter and series example">
@@ -737,6 +877,13 @@ Counter: \
 
 ### Minipage
 
+Minipages (basically just _glorified_ blocks) serve as an environment to sandbox notes.
+They maintains their own counter system (but can be synced with the page or together), default note parameters, and can be nested.
+
+Since `deixis` notes are decoupled and each component can target different minipages, the rules are:
+- The mark dictates the counter (numbering).
+- The body dictates the rendering context of the body.
+
 <div align="center">
 <img src="assets/gallery/minipage-1.svg" width="500px" alt="Minipage example">
 </div>
@@ -758,7 +905,6 @@ Notice the numbers#deixis-footnote[A page-level footnote.].
   Minipages are very handy for creating locally rendered notes
   #deixis-footnote[A block-level footnote.]
   #deixis-margin-note[A block-level margin note.].
-
 ]
 
 #deixis-block(
@@ -775,7 +921,7 @@ Notice the numbers#deixis-footnote[A page-level footnote.].
 ## Acknowledgements
 
 This package has some similar functionalities inspired by existing packages:
-- [drafting](https://github.com/ntjess/typst-drafting): Margin note, without numbering.
+- [drafting](https://github.com/ntjess/typst-drafting): Inline mark, inline note, and margin note, without numbering.
 - [marge](https://github.com/EpicEricEE/typst-marge): Margin note, without links.
 - [pinit](https://github.com/OrangeX4/typst-pinit): Equivalent to region mark and inset note, without numbering.
 - [Rik's endnote](https://forum.typst.app/t/an-endnotes-implementation-with-headings-and-cross-referencing/7760): An early attempt to implement endnote.

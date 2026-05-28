@@ -14,8 +14,6 @@
 ///   id: <apricharity>,
 ///   dx: 2.5em,
 ///   dy: 2em,
-///   link: "curve",
-///   link-marks: "body",
 /// )[
 ///   warmth of the sun in winter.
 /// ]
@@ -41,7 +39,7 @@
 /// - dy (none, length): Absolute vertical offset for placing the note.
 /// - anchor (dictionary): A dictionary defining how the note aligns to its anchor point (e.g., `(mark: horizon + right, body: horizon + left)`).
 /// - anchor-pin (none, str): A specific `#deixis-pin` name to anchor the inset note to.
-/// - layer (auto, str): The rendering layer context. Choices: `"flow"` | `"foreground"`.
+/// - layer (auto, str): The rendering layer context. Choices: `"flow"` | `"foreground"` | `"background"`.
 /// - render-single (auto, function): A custom render function for the inner layout of the body.
 /// - container-func (auto, function): A custom container wrapper for the body block.
 /// - ..args (arguments): Only accepts named arguments, which are forwarded to `container-func`.
@@ -134,6 +132,7 @@
   /// #deixis-inset-note(
   ///   anchor-pin: "anchor-pin",
   ///   anchor: (mark: horizon, body: horizon + left),
+  ///   layer: "flow",
   ///   dx: 0pt, dy: 0pt)[Mark][Inset note anchored to a pin.]
   ///
   /// #lorem(3)#deixis-pin("anchor-pin")
@@ -143,7 +142,13 @@
   ///
   /// -> none | str
   anchor-pin: none,
-  /// The rendering layer context. Choices: `"flow"` | `"foreground"`.
+  /// The rendering layer context. Choices: `"flow"` | `"foreground"` | `"background"`.
+  /// 
+  /// ```warning
+  /// Similar to @deixis-region-mark.layer, the `"flow"` layer will trigger a `#parbreak` and disrupt your paragraph.
+  /// However, it is still recommended to use `layer: "flow"` whenever possible for stability.
+  /// ```
+  /// 
   /// -> auto | str
   layer: "flow",
   /// A custom render function for the inner layout of the body.
@@ -776,155 +781,146 @@
 }
 
 // Inset note overlay
-#let _deixis-inset-notes-overlay(layer: "foreground") = context {
-  let notes = query(<deixis-inset-note>).filter(it => (
-    type(it.value) == dictionary and it.value.at("mark-lbl", default: none) != none
-  ))
-  let paths = ()
-  let sys = deixis-system.get()
+#let _deixis-inset-notes-overlay(layer: "foreground") = {
   
-  let current-page = here().page()
-  let all-pins = query(<deixis-pin>)
-
-  for n in notes {
-    let data = n.value
-    let n-layer = data.at("layer", default: "foreground")
-
-    let target_page = n.location().page()
-    if data.anchor-pin != none {
-      let pin-elems = all-pins.filter(x => x.value.name == data.anchor-pin)
-      if pin-elems.len() > 0 {
-        target_page = pin-elems.first().location().page()
-      }
-    }
-
-    // body
-    if n-layer == layer and current-page == target_page {
-      let active-renderer = data.render-single
-      let rendered-content = active-renderer(data, inner-width: if data.width == auto { auto } else { 100% })
-
-      let dest-top-lbl = data.at("dest-top-lbl", default: none)
-      
-      let final-rendered = block(width: data.width, {
-        // Only generate connection labels if it's not a celibate note
-        if dest-top-lbl != none {
-          place(top + center, [#metadata(none)#dest-top-lbl])
-          place(bottom + center, [#metadata(none)#data.dest-bot-lbl])
-          place(horizon + left, [#metadata(none)#data.dest-left-lbl])
-          place(horizon + right, [#metadata(none)#data.dest-right-lbl])
-        }
-        rendered-content
-      })
-
-      if type(data.placement) == function {
-        paths.push(box(data.placement(final-rendered)))
-      } else if data.dx != none or data.dy != none {
-        paths.push(deixis-place-anchored(
-          final-rendered,
-          dx: if data.dx == none { 0pt } else { data.dx },
-          dy: if data.dy == none { 0pt } else { data.dy },
-          anchor: data.anchor,
-          internal-id: data.internal-id,
-          pin: data.anchor-pin,
-        ))
-      } else {
-        // Default: anchor directly to the mark if no dx/dy is provided
-        paths.push(deixis-place-anchored(
-          final-rendered,
-          dx: 0pt, dy: 0pt,
-          anchor: data.anchor,
-          internal-id: data.internal-id,
-          pin: data.anchor-pin,
-        ))
-      }
-    }
-
-    // link
-    if layer != "foreground" { continue }
-
-    let c-link = _deixis-resolve-typed-param(sys, data.at("link", default: auto), "link", "inset-note")
-    if c-link in (none, "none", false) { continue }
-    let c-link-stroke = data.at("link-stroke", default: _deixis-resolve-typed-param(
-      sys,
-      auto,
-      "stroke",
-      "inset-note",
-      component: "link",
+  let draw-bodies = context {
+    let notes = query(<deixis-inset-note>).filter(it => (
+      type(it.value) == dictionary and it.value.at("mark-lbl", default: none) != none
     ))
-    let c-link-radius = data.at("link-radius", default: _deixis-resolve-typed-param(
-      sys,
-      auto,
-      "radius",
-      "inset-note",
-      component: "link",
-    ))
-    let c-link-marks = _deixis-resolve-typed-param(
-      sys,
-      data.at("link-marks", default: auto),
-      "link-marks",
-      "inset-note",
-    )
+    let paths = ()
+    let current-page = here().page()
+    let all-pins = query(<deixis-pin>)
 
-    let start-elems = query(selector(data.mark-lbl))
-    let d-top-elems = query(selector(data.at("dest-top-lbl", default: data.body-lbl)))
+    for n in notes {
+      let data = n.value
+      let n-layer = data.at("layer", default: "foreground")
 
-    if start-elems.len() > 0 and d-top-elems.len() > 0 {
-      let current-page = here().page()
-      let S_page = start-elems.last().location().page()
-      let E_page = d-top-elems.last().location().page()
-
-      let region-elems = query(<deixis-region-mark>).filter(r => (
-        type(r.value) == dictionary
-          and r.value.at("internal-id", default: none) != none
-          and str(r.value.internal-id) == str(data.internal-id)
-      ))
-      let is-region = region-elems.len() > 0
-      let reg = if is-region { region-elems.first().value } else { none }
-      let all-pins = if is-region { query(<deixis-pin>) } else { () }
-
-      let r-pins = ()
-      if is-region {
-        for pin-name in reg.pins {
-          for p in all-pins.filter(x => x.value.name == pin-name) { r-pins.push(p) }
+      let target_page = n.location().page()
+      if data.anchor-pin != none {
+        let pin-elems = all-pins.filter(x => x.value.name == data.anchor-pin)
+        if pin-elems.len() > 0 {
+          target_page = pin-elems.first().location().page()
         }
-        if r-pins.len() > 0 {
-          let sorted-pins = r-pins.sorted(key: p => (p.location().page(), p.location().position().y))
-          let first_region_page = sorted-pins.first().location().page()
-          let last_region_page = sorted-pins.last().location().page()
+      }
 
-          if E_page >= first_region_page and E_page <= last_region_page {
-            S_page = E_page
-          } else if E_page < first_region_page {
-            S_page = first_region_page
-          } else {
-            S_page = last_region_page
+      if n-layer == layer and current-page == target_page {
+        let active-renderer = data.render-single
+        let rendered-content = active-renderer(data, inner-width: if data.width == auto { auto } else { 100% })
+        let dest-top-lbl = data.at("dest-top-lbl", default: none)
+        
+        let final-rendered = block(width: data.width, {
+          if dest-top-lbl != none {
+            place(top + center, [#metadata(none)#dest-top-lbl])
+            place(bottom + center, [#metadata(none)#data.dest-bot-lbl])
+            place(horizon + left, [#metadata(none)#data.dest-left-lbl])
+            place(horizon + right, [#metadata(none)#data.dest-right-lbl])
           }
+          rendered-content
+        })
+
+        if type(data.placement) == function {
+          paths.push(box(data.placement(final-rendered)))
+        } else if data.dx != none or data.dy != none {
+          paths.push(deixis-place-anchored(
+            final-rendered,
+            dx: if data.dx == none { 0pt } else { data.dx },
+            dy: if data.dy == none { 0pt } else { data.dy },
+            anchor: data.anchor,
+            internal-id: data.internal-id,
+            pin: data.anchor-pin,
+          ))
+        } else {
+          paths.push(deixis-place-anchored(
+            final-rendered,
+            dx: 0pt, dy: 0pt,
+            anchor: data.anchor,
+            internal-id: data.internal-id,
+            pin: data.anchor-pin,
+          ))
         }
       }
-
-      if current-page != S_page and current-page != E_page { continue }
-
-      let S = start-elems.last().location().position()
-      let D_top = d-top-elems.last().location().position()
-
-      let link-paths = _deixis-render-inset-link(
-        data,
-        current-page,
-        S_page,
-        E_page,
-        S,
-        D_top,
-        reg: reg,
-        r-pins: r-pins,
-        c-link: c-link,
-        c-link-stroke: c-link-stroke,
-        c-link-radius: c-link-radius,
-        c-link-marks: c-link-marks,
-      )
-
-      for el in link-paths { paths.push(el) }
     }
+    paths.join()
   }
 
-  paths.join()
+  let draw-links = context {
+    if layer != "foreground" { return none }
+    
+    let notes = query(<deixis-inset-note>).filter(it => (
+      type(it.value) == dictionary and it.value.at("mark-lbl", default: none) != none
+    ))
+    let paths = ()
+    let sys = deixis-system.get()
+
+    for n in notes {
+      let data = n.value
+      
+      let c-link = _deixis-resolve-typed-param(sys, data.at("link", default: auto), "link", "inset-note")
+      if c-link in (none, "none", false) { continue }
+      
+      let c-link-stroke = data.at("link-stroke", default: _deixis-resolve-typed-param(
+        sys, auto, "stroke", "inset-note", component: "link",
+      ))
+      let c-link-radius = data.at("link-radius", default: _deixis-resolve-typed-param(
+        sys, auto, "radius", "inset-note", component: "link",
+      ))
+      let c-link-marks = _deixis-resolve-typed-param(
+        sys, data.at("link-marks", default: auto), "link-marks", "inset-note",
+      )
+
+      let start-elems = query(selector(data.mark-lbl))
+      let d-top-elems = query(selector(data.at("dest-top-lbl", default: data.body-lbl)))
+
+      if start-elems.len() > 0 and d-top-elems.len() > 0 {
+        let current-page = here().page()
+        let S_page = start-elems.last().location().page()
+        let E_page = d-top-elems.last().location().page()
+
+        let region-elems = query(<deixis-region-mark>).filter(r => (
+          type(r.value) == dictionary
+            and r.value.at("internal-id", default: none) != none
+            and str(r.value.internal-id) == str(data.internal-id)
+        ))
+        let is-region = region-elems.len() > 0
+        let reg = if is-region { region-elems.first().value } else { none }
+        let all-pins = if is-region { query(<deixis-pin>) } else { () }
+
+        let r-pins = ()
+        if is-region {
+          for pin-name in reg.pins {
+            for p in all-pins.filter(x => x.value.name == pin-name) { r-pins.push(p) }
+          }
+          if r-pins.len() > 0 {
+            let sorted-pins = r-pins.sorted(key: p => (p.location().page(), p.location().position().y))
+            let first_region_page = sorted-pins.first().location().page()
+            let last_region_page = sorted-pins.last().location().page()
+
+            if E_page >= first_region_page and E_page <= last_region_page {
+              S_page = E_page
+            } else if E_page < first_region_page {
+              S_page = first_region_page
+            } else {
+              S_page = last_region_page
+            }
+          }
+        }
+
+        if current-page != S_page and current-page != E_page { continue }
+
+        let S = start-elems.last().location().position()
+        let D_top = d-top-elems.last().location().position()
+
+        let link-paths = _deixis-render-inset-link(
+          data, current-page, S_page, E_page, S, D_top,
+          reg: reg, r-pins: r-pins, c-link: c-link, c-link-stroke: c-link-stroke,
+          c-link-radius: c-link-radius, c-link-marks: c-link-marks,
+        )
+
+        for el in link-paths { paths.push(el) }
+      }
+    }
+    paths.join()
+  }
+
+  [#draw-bodies#draw-links]
 }

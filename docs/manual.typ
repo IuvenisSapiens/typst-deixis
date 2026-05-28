@@ -122,7 +122,7 @@ Inspired by ```tex \footnotemark``` and ```tex \footnotetext``` in LaTeX, `deixi
 
 - *The link:*
   The optional connection that links the mark to the body.
-  Semantically, it can be considered the third component, but programatically, it is treated as part of the body and set via the parameter `link`.
+  Semantically, it can be considered the third component, but programatically, it is treated as part of the body (set via `link`).
 
 If given a `label`, notes can be referenced anywhere in the document.
 The body is also aware of where it is referenced, allowing it to generate backlink buttons #super(emoji.arrow.l.hook).
@@ -285,8 +285,8 @@ If you encounter any bug, please report at #link(repository).
 This is just a non-exhaustive list of known limitations that might not have a fix.
 
 - Page-level footnotes are currently dependent on `std.footnote` internally, limiting their customizability.
-- Occasionally, if put inside a `std.measure`-ed container, foreground overlayed notes like footnotes and margin notes may have their mark $arrow.r$ body link broken, pointing to the beginning of the document when clicked. 
-- Similarly, a relative-placed `#deixis-inset-note` inside a `std.measure`-ed container will have wrongly calculated body coordinates, resulting in a link connecting to the border of the page.
+- Occasionally, if put inside the `demo` environment in this manual, foreground overlayed notes like footnotes and margin notes may have their mark $arrow.r$ body link broken, pointing to the beginning of the document when clicked. 
+- Similarly, a relative-placed `#deixis-inset-note` sometimes have wrongly calculated body coordinates, resulting in a link connecting to the border of the page.
   ```demo
   #deixis-inset-note(
     stroke: red,
@@ -294,12 +294,9 @@ This is just a non-exhaustive list of known limitations that might not have a fi
     link: "straight-line",
     link-marks: "both",
     dx: 4em, dy: 3em,
+    layer: "flow",  // not affecting "foreground"
   )[Note mark.][Note body.]
   ```
-
-#error[
-  We suspect both these issues stem from the underlying interaction between `std.measure` and content `std.label`.
-]
 
 == Conclusion
 

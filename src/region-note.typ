@@ -318,6 +318,7 @@
   ///
   /// ```tip
   /// - Use `"flow"` for highlighting images, diagrams, ...
+  ///   Be aware that it will trigger a `#parbreak`.
   ///
   /// - Use `"background"` for highlighting texts, equations, ... _if they are not in a non-transparent container_.
   ///
@@ -348,10 +349,9 @@
   let has-body = body != none
   let has-pins = type(pins) == array and pins.len() > 0
 
-  assert(
-    has-pins != has-body,
-    message: "#deixis-region-mark requires either 'pins' or a positional body, but not both.",
-  )
+  if has-pins == has-body {
+    panic("#deixis-region-mark requires either 'pins' or a positional body, but not both.")
+  }
 
   let padding = if padding == auto {
     if inline and has-body { "text" } else { 0pt }

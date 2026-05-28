@@ -20,7 +20,7 @@
 /// -> str
 #let deixis-pin-postfix-state = state("deixis-pin-postfix", "")
 
-/// Sets the global prefix and postfix used by @deixis-attach regex engine.
+/// Sets the global prefix and postfix used by ```ref #deixis-attach``` regex engine.
 ///
 /// - prefix (str): The string prefix to use for regex matching.
 /// - postfix (str): The string postfix to use for regex matching.

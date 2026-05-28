@@ -19,6 +19,9 @@
                         </g>
                     </g>
                 </g>
+                <g class="typst-group">
+                    <g/>
+                </g>
             </g>
         </g>
         <g class="typst-group">
@@ -709,8 +712,6 @@
                                 </g>
                             </g>
                         </g>
-                        <path class="typst-shape" fill="none" stroke="#2ecc40" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="3 3" transform="matrix(1 0 0 1 185.21595103346456 80.16745643916093)" d="M 0 0c 26.45525 0 52.9105 -7.3730497 52.9105 -14.746099 "/>
-                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 238.12645 64.77691 l 2.5 4.6444473 l -2.5 -1.5999985 l -2.5 1.5999985 c 0 0 2.5 -4.6444473 2.5 -4.6444473 Z "/>
                         <g class="typst-group">
                             <g>
                                 <g class="typst-group" transform="matrix(1 0 0 1 197.32805000000002 96.93755669291338)">
@@ -757,6 +758,8 @@
                                 </g>
                             </g>
                         </g>
+                        <path class="typst-shape" fill="none" stroke="#2ecc40" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="3 3" transform="matrix(1 0 0 1 185.21595103346456 80.16745643916093)" d="M 0 0c 26.45525 0 52.9105 -7.3730497 52.9105 -14.746099 "/>
+                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 238.12645 64.77691 l 2.5 4.6444473 l -2.5 -1.5999985 l -2.5 1.5999985 c 0 0 2.5 -4.6444473 2.5 -4.6444473 Z "/>
                         <path class="typst-shape" fill="none" stroke="#ff4136" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="3 3" transform="matrix(1 0 0 1 171.66505059670277 88.241455078125)" d="M 0 0c 0 7.975001 12.8315 15.950002 25.663 15.950002 "/>
                         <path class="typst-shape" fill="#ff4136" fill-rule="nonzero" d="M 0 0m 197.97249 104.19146 l -4.6444397 2.5 l 1.6000061 -2.5 l -1.6000061 -2.5 c 0 0 4.6444397 2.5 4.6444397 2.5 Z "/>
                     </g>
