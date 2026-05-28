@@ -3,6 +3,11 @@ deixis [![Typst Universe](https://img.shields.io/badge/dynamic/xml?url=https%3A%
 
 Decoupled annotations for [Typst](https://typst.app/).
 
+
+<div align="center">
+<img src="assets/logo.svg" width="200px" alt="Ugliest logo ever">
+</div>
+
 `deixis` is a unified layout engine for footnotes, endnotes, margin notes, inset notes, inline highlights, and spatial annotations.
 
 > _under development, expect bugs_
@@ -21,7 +26,7 @@ Decoupled annotations for [Typst](https://typst.app/).
   - [Inset note](#inset-note)
 - [Cross-reference & bi-directional backlinks](#cross-reference-and-backlink)
 - [Note outline](#note-outline)
-- Minipage
+- [Minipage](#minipage)
 
 ## Installation
 
@@ -39,7 +44,7 @@ When it is officially released, you will be able to download and use it by simpl
 For local use, first you need to clone the repo and run the install script:
 
 ```bash
-git clone https://github.com/inspiros/deixis
+git clone https://github.com/inspiros/typst-deixis
 python scripts/install.py
  ```
 
@@ -537,6 +542,71 @@ Test notes:
 
 </details>
 
+### Counter and Series
+
+<div align="center">
+<img src="assets/gallery/counter.svg" width="500px" alt="Counter and series example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+
+````typst
+#let todo = deixis-margin-note.with(
+  series: "todo",
+  stroke: red,
+  fill: red.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)
+#let first-author = deixis-margin-note.with(
+  series: "comm",
+  stroke: blue,
+  fill: blue.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)
+#let second-author = deixis-margin-note.with(
+  series: "comm",
+  stroke: teal,
+  fill: teal.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)
+#let remark = deixis-margin-note.with(
+  marker: "",
+  series: "remark",
+  stroke: maroon,
+  fill: maroon.transparentize(95%),
+  link: "right-angle",
+  container-func: rect,
+)
+
+#lorem(3)
+#todo[Rewrite this sentence.]
+#lorem(3)
+#first-author[Good point.]
+#lorem(2)
+#deixis-update-note-counter(0, series: "todo")
+#todo[```typc "todo"``` restarts from 1 again.].
+
+#lorem(7)
+#second-author[But ```typc "comm"``` is unaffected.]
+#lorem(2)
+#deixis-update-note-counter(0)  // no effect
+#first-author[][This keeps counting up.]
+#second-author[][Use an empty mark `[]` to avoid overlapping highlight box.]
+#lorem(10)
+#remark[*Remark:* ```typst #deixis-update-note-counter``` defaults to the ```typc "default"``` series!]
+
+Counter: \
+```typc "default"```: #context deixis-note-counter(series: "default") \
+```typc "todo"```: #context deixis-note-counter(series: "todo") \
+```typc "comm"```:  #context deixis-note-counter(series: "comm")
+````
+
+</details>
+
 ### Note Outline
 
 <div align="center">
@@ -573,6 +643,45 @@ Test notes:
   fill: repeat[.],
   include-celibates: "mark",
 )
+````
+
+</details>
+
+---
+
+### Minipage
+
+<div align="center">
+<img src="assets/gallery/minipage.svg" width="500px" alt="Minipage example">
+</div>
+
+<details>
+<summary><b>Show Typst Source Code</b></summary>
+
+````typst
+#import "../src/lib.typ": *
+#show: deixis-setup-notes
+#show raw: set text(size: 0.85em)
+
+Notice the numbers#deixis-footnote[A page-level footnote.].
+#deixis-block(
+  id: <gray-block>,
+  fill: gray.lighten(80%),
+  inset: (right: 2cm, rest: 5pt),
+)[
+  Minipages are very handy for creating locally rendered notes
+  #deixis-footnote[A block-level footnote.]
+  #deixis-margin-note[A block-level margin note.].
+
+]
+
+#deixis-block(
+  sync-counters-with: <gray-block>,
+  fill: green.lighten(80%),
+  inset: 5pt,
+)[
+  Moreover, they can maintain a separate counter system, or sync with each other #deixis-footnote[This block shares the counters with ```typst <gray-block>.```].
+]
 ````
 
 </details>
