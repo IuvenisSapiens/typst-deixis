@@ -83,7 +83,7 @@
 #set par(justify: true)
 
 = Introduction
-`deixis` is a unified layout engine for footnotes, endnotes, margin notes, inset notes, inline highlights, and spatial annotations.
+`deixis` is a unified layout engine for inline notes, footnotes, endnotes, margin notes, inset notes, and inline spatial highlights with visual connectors.
 
 == Quick Start
 To use `deixis`, you must initialize the state engine at the top of your document:
