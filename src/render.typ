@@ -386,7 +386,6 @@
   let grid-cells = ()
 
   for data in notes-data {
-    let mark-marker-style = data.at("mark-marker-style", default: it => super(it))
     let body-style = data.at("body-style", default: it => it)
 
     let m-indent = data.at("indent", default: 0pt)
@@ -396,8 +395,7 @@
     let note-cap-ht = measure(body-style("T")).height
 
     let backlink-content = if _deixis-should-render-backlinks(data) {
-      let raw-bl = mark-marker-style(super(deixis-generate-backlinks(data)))
-      box(height: note-cap-ht, align(top, raw-bl))
+      box(height: note-cap-ht, align(top, super(deixis-generate-backlinks(data))))
     } else { none }
 
     let formatted-marker = box(height: note-cap-ht, align(top + right, body-marker))
