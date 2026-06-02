@@ -181,7 +181,7 @@
     (<deixis-inset-note>, "inset-note"),
   )
 
-  // ✨ Collect and Merge Metadata
+  // collect metadata
   let combined = (:)
   let raw-celibates = ()
 
@@ -229,7 +229,6 @@
     }
   }
 
-  // ✨ Filter and Extract Data
   let c-inc-marks = (
     include-celibates == true
       or include-celibates == "both"
@@ -279,6 +278,16 @@
     let num = extract-field(meta-to-use, "marker-str", none)
     if num == none and n.mark-meta != none { num = extract-field(n.mark-meta, "marker-str", none) }
 
+    let m-lbl = extract-field(meta-to-use, "mark-lbl", none)
+    let b-lbl = extract-field(meta-to-use, "body-lbl", none)
+    let target-dest = if m-lbl != none { 
+      m-lbl 
+    } else if b-lbl != none { 
+      b-lbl 
+    } else { 
+      n.loc 
+    }
+
     let styles = extract-field(meta-to-use, "styles", (:))
     let s-obj = if styles.at("stroke", default: auto) != none { styles.at("stroke", default: 0.5pt + luma(200)) } else {
       none
@@ -303,6 +312,7 @@
 
     valid-notes.push((
       loc: n.loc,
+      dest: target-dest,
       body: extract-field(meta-to-use, "body", none),
       badge: badge,
       type: actual-type,
@@ -310,7 +320,7 @@
     ))
   }
 
-  // ✨ Group and Render
+  // group and render
   let grouped = (:)
   let pretty-types = (
     "inline-mark": "Inline Marks",
@@ -345,6 +355,7 @@
       heading(level: heading-level + 1, g-key)
     }
 
+    let outline-items = ()
     for note in g-notes {
       let c-body = if note.body != none {
         note.body
@@ -352,21 +363,32 @@
         text(fill: luma(150), style: "italic", size: 0.9em)[No body text]
       }
 
-      let excerpt = block(width: 100%, height: 1.1em, clip: true, {
-        set text(size: 0.95em)
-        set par(justify: false, leading: 2em, spacing: 0pt)
-        if fill != none { [#c-body #box(width: 1fr, fill)] } else { c-body }
-      })
-
-      let row = grid(
-        columns: (2em, 1fr, auto),
-        column-gutter: 0.75em,
-        align: (center + horizon, left + horizon, right + horizon),
-        note.badge, excerpt, [#note.loc.page()],
+      let content-and-page = grid(
+        columns: (1fr, auto),
+        column-gutter: 0.5em,
+        align: (left + top, right + bottom),
+        {
+          set text(size: 0.95em)
+          set par(justify: false)
+          
+          if fill != none { 
+            [#c-body #box(width: 1fr, fill)] 
+          } else { 
+            [#c-body #h(1fr)] 
+          }
+        },
+        text(size: 0.95em)[#note.loc.page()]
       )
 
-      link(note.loc, row)
-      v(c-gap, weak: true)
+      outline-items.push(link(note.dest, note.badge))
+      outline-items.push(link(note.dest, content-and-page))
     }
+    grid(
+        columns: (auto, 1fr), 
+        column-gutter: 0.75em,
+        row-gutter: c-gap,
+        align: (center + top, left + top),
+        ..outline-items
+    )
   }
 }

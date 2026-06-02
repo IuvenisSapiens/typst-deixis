@@ -10,6 +10,13 @@ Typeset decoupled annotations, visual connectors, and spatial highlights in [Typ
 
 `deixis` is a unified layout engine for inline notes, footnotes, endnotes, margin notes, inset notes, and inline spatial highlights with visual connectors.
 
+
+<div align="center">
+<a href="examples/showcase.typ">
+<img src="assets/gallery/showcase-1.svg" width="500px" alt="Deixis functionalities showcase">
+</a>
+</div>
+
 ## Main Features
 
 - **Marks:**
@@ -921,10 +928,6 @@ Since `deixis` notes are decoupled and each component can target different minip
 <summary><b>Show Typst Source Code</b></summary>
 
 ````typst
-#import "../src/lib.typ": *
-#show: deixis-setup-notes
-#show raw: set text(size: 0.85em)
-
 Notice the numbers#deixis-footnote[A page-level footnote.].
 #deixis-block(
   id: <gray-block>,
