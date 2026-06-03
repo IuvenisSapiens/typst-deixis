@@ -50,14 +50,7 @@
   let arrow-half-width = calc.max(2.5, abs-thick * 2.5)
   let inset-depth = arrow-length * 0.4
 
-  // push the tip forward mathematically to envelop the flat line cap
-  let t-half = abs-thick / 2.0
-  let tip-forward = ((t-half * arrow-length) / (arrow-half-width - t-half)) + 0.2
-
-  let tip = (
-    p2.at(0) + tip-forward * calc.cos(angle) * 1pt,
-    p2.at(1) + tip-forward * calc.sin(angle) * 1pt,
-  )
+  let tip = p2
 
   let p-back = (
     p2.at(0) - arrow-length * calc.cos(angle) * 1pt,
@@ -323,6 +316,62 @@
     }
   }
 
+  // calculate the exact pullback distance to hide the flat line cap
+  let s-obj = std.stroke(link-stroke)
+  let abs-thick = if s-obj.thickness == auto { 1.0 } else { deixis-utils.resolve-len(s-obj.thickness) / 1pt }
+  let arrow-length = calc.max(4.0, abs-thick * 4.0)
+  let inset-depth = arrow-length * 0.4
+
+  // pull back into the arrow's inset notch
+  let pullback = calc.max(0.0, (arrow-length - inset-depth) - 0.2) * 1pt
+
+  let pt-first-dir = if clean-wps.len() > 0 { clean-wps.first() } else { end-rel }
+  let pt-last-dir = if clean-wps.len() > 0 { clean-wps.last() } else { (0pt, 0pt) }
+
+  let get-start-pullback() = {
+    let eff-s-dir = if source-dir == "none" { "vertical" } else { source-dir }
+    let dx = pt-first-dir.at(0)
+    let dy = pt-first-dir.at(1)
+
+    if link-type in ("straight-line", "none", none) {
+      let len = calc.max(1e-5pt, calc.sqrt((dx / 1pt) * (dx / 1pt) + (dy / 1pt) * (dy / 1pt)) * 1pt)
+      return ((dx / len) * pullback, (dy / len) * pullback)
+    } else {
+      // orthogonal/curve links always depart strictly horizontally or vertically
+      let sign-x = if dx >= 0pt { 1 } else { -1 }
+      let sign-y = if dy >= 0pt { 1 } else { -1 }
+      return if eff-s-dir == "horizontal" { (pullback * sign-x, 0pt) } else { (0pt, pullback * sign-y) }
+    }
+  }
+
+  let get-end-pullback() = {
+    let eff-t-dir = if target-dir == "none" { "horizontal" } else { target-dir }
+    let dx = end-rel.at(0) - pt-last-dir.at(0)
+    let dy = end-rel.at(1) - pt-last-dir.at(1)
+
+    if link-type in ("straight-line", "none", none) {
+      let len = calc.max(1e-5pt, calc.sqrt((dx / 1pt) * (dx / 1pt) + (dy / 1pt) * (dy / 1pt)) * 1pt)
+      return ((dx / len) * pullback, (dy / len) * pullback)
+    } else {
+      // prthogonal/curve links always arrive strictly horizontally or vertically
+      let sign-x = if dx >= 0pt { 1 } else { -1 }
+      let sign-y = if dy >= 0pt { 1 } else { -1 }
+      return if eff-t-dir == "horizontal" { (pullback * sign-x, 0pt) } else { (0pt, pullback * sign-y) }
+    }
+  }
+
+  let start-pb = get-start-pullback()
+  let end-pb = get-end-pullback()
+
+  // shortened coordinates
+  let path-start = if link-marks in ("mark", "start", "both") {
+    (start-pb.at(0), start-pb.at(1))
+  } else { (0pt, 0pt) }
+
+  let path-end = if link-marks in ("body", "end", "both") {
+    (end-rel.at(0) - end-pb.at(0), end-rel.at(1) - end-pb.at(1))
+  } else { end-rel }
+
   // chunking
   let raw-points = ()
   let raw-types = ()
@@ -336,11 +385,11 @@
       raw-types.push(cur-type)
     }
   }
-  raw-points.push(end-rel)
+  raw-points.push(path-end)
   raw-types.push(cur-type)
 
   let chunks = ()
-  let chunk-start = (0pt, 0pt)
+  let chunk-start = path-start
   let current-chunk-wps = ()
   let current-chunk-type = raw-types.first()
 
@@ -363,7 +412,7 @@
   let inner-wps = current-chunk-wps.slice(0, -1)
   chunks.push((start: chunk-start, end: chunk-end, wps: inner-wps, type: current-chunk-type))
 
-  let cmds = (curve.move((0pt, 0pt)),)
+  let cmds = (curve.move((path-start)),)
   let global-t-start = (0pt, 0pt)
   let global-t-end = (0pt, 0pt)
 
