@@ -97,7 +97,7 @@
 To use `deixis`, you must initialize the state engine at the top of your document:
 
 ```source
-#import "@preview/deixis:0.1.0": *
+#import "@preview/deixis:0.1.1": *
 #show: deixis-setup-notes
 ```
 

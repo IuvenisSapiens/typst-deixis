@@ -42,7 +42,7 @@ Typeset decoupled annotations, visual connectors, and spatial highlights in [Typ
 This package is available in the Typst Universe, you can download and use it by simply adding the following line to your document.
 
 ```typst
-#import "@preview/deixis:0.1.0": *
+#import "@preview/deixis:0.1.1": *
 ```
 
 ### Local Use
@@ -58,7 +58,7 @@ This Python script stores the package files in the right location following the 
 Once installed, you can import the package with:
 
 ```typst
-#import "@local/deixis:0.1.0": *
+#import "@local/deixis:0.1.1": *
 ```
 
 ## Usage and Examples

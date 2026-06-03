@@ -138,8 +138,6 @@
   /// Usage:
   /// #deixis-attach(prefix: "mypin")[
   ///   ```typst
-  ///   #import "@preview/deixis:0.1.0": *
-  ///
   ///   mypincode1#deixis-attachmypincode2(postfix: "deixis")[
   ///     deixispinp1deixisThis line will be pinned.deixispinp2deixis
   ///   ]
