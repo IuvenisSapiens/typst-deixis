@@ -1,3 +1,9 @@
+// A4 paper size
+#let default-page-size = (
+  width: 21.0cm,
+  height: 29.7cm,
+)
+
 #let resolve-len(val) = {
   if val == auto or type(val) == fraction or val == none or type(val) == ratio {
     0pt
@@ -14,25 +20,33 @@
 
 #let get-page-margins(page-num) = {
   let m = page.margin
-  let default-m = 2.5cm
 
-  if m == auto { return (left: default-m, right: default-m, top: default-m, bottom: default-m) }
+  let p-w = if type(page.width) == length { page.width } else { default-page-size.width }
+  let p-h = if type(page.height) == length { page.height } else { default-page-size.height }
+
+  let auto-x = p-w * (2.5 / (default-page-size.width / 1cm))
+  let auto-y = p-h * (2.5 / (default-page-size.height / 1cm))
+
+  if m == auto { return (left: auto-x, right: auto-x, top: auto-y, bottom: auto-y) }
+  
   if type(m) != dictionary { return (left: m, right: m, top: m, bottom: m) }
 
-  let r-auto(val, def) = if val == auto { def } else { val }
+  let get(key, def) = if key in m and m.at(key) != auto { m.at(key) } else { def }
 
-  let rest = r-auto(m.at("rest", default: default-m), default-m)
-  let x = r-auto(m.at("x", default: rest), rest)
-  let y = r-auto(m.at("y", default: rest), rest)
+  let rest-x = get("rest", auto-x)
+  let rest-y = get("rest", auto-y)
 
-  let l-margin = r-auto(m.at("left", default: x), x)
-  let r-margin = r-auto(m.at("right", default: x), x)
-  let t-margin = r-auto(m.at("top", default: y), y)
-  let b-margin = r-auto(m.at("bottom", default: y), y)
+  let x = get("x", rest-x)
+  let y = get("y", rest-y)
+
+  let l-margin = get("left", x)
+  let r-margin = get("right", x)
+  let t-margin = get("top", y)
+  let b-margin = get("bottom", y)
 
   if "inside" in m or "outside" in m {
-    let inside = r-auto(m.at("inside", default: x), x)
-    let outside = r-auto(m.at("outside", default: x), x)
+    let inside = get("inside", x)
+    let outside = get("outside", x)
 
     if calc.odd(page-num) {
       l-margin = inside

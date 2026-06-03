@@ -38,7 +38,7 @@
   }
 
   let p-margins = deixis-utils.get-page-margins(current-page)
-  let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { 29.7cm })
+  let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height })
   let text-top = deixis-utils.resolve-len(p-margins.top)
   let text-bottom = page-h - deixis-utils.resolve-len(p-margins.bottom)
 

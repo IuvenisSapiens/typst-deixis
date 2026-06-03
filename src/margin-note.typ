@@ -933,8 +933,8 @@
 
   let p-margins = deixis-utils.get-page-margins(current-page)
   let r-len(val, def) = if val == auto { def } else { val }
-  let page-w = r-len(page.width, 21cm)
-  let page-h = r-len(page.height, 29.7cm)
+  let page-w = r-len(page.width, deixis-utils.default-page-size.width)
+  let page-h = r-len(page.height, deixis-utils.default-page-size.height)
 
   let top-bound = deixis-utils.resolve-len(p-margins.top)
   let bottom-bound = deixis-utils.resolve-len(page-h) - deixis-utils.resolve-len(p-margins.bottom)
@@ -976,7 +976,7 @@
           idx: p - 1,
           page: p,
           top: deixis-utils.resolve-len(p-m.top),
-          bottom: deixis-utils.resolve-len(r-len(page.height, 29.7cm)) - deixis-utils.resolve-len(p-m.bottom),
+          bottom: deixis-utils.resolve-len(r-len(page.height, deixis-utils.default-page-size.height)) - deixis-utils.resolve-len(p-m.bottom),
           l-space: deixis-utils.resolve-len(p-m.left),
           r-space: deixis-utils.resolve-len(p-m.right),
         ))

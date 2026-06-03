@@ -868,8 +868,8 @@
     let mark-x = n.mark-x
     let mark-y = n.mark-y
 
+    // FIXME: hack for 2nd level notes and above
     if note-data.at("depth", default: 0) >= 2 {
-      // FIXME: hack
       mark-x += note-data.at("marker-width", default: 0pt)
     }
 
@@ -1165,7 +1165,7 @@
     }
 
     let p-margins = deixis-utils.get-page-margins(current-page)
-    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { 29.7cm })
+    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height })
     let top-bound = deixis-utils.resolve-len(p-margins.top)
     let bottom-bound = page-h - deixis-utils.resolve-len(p-margins.bottom)
 
@@ -1280,8 +1280,8 @@
   place(top + left, context {
     let page-pos = here().position()
 
-    let p-w = if type(page.width) == length { page.width } else { 21cm }
-    let p-h = if type(page.height) == length { page.height } else { 29.7cm }
+    let p-w = if type(page.width) == length { page.width } else { deixis-utils.default-page-size.width }
+    let p-h = if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height }
 
     place(
       top + left,

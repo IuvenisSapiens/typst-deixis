@@ -836,7 +836,7 @@
 
   let goes-forward = S-page < E-page
   let p-margins = deixis-utils.get-page-margins(current-page)
-  let page-h = if type(page.height) == length { page.height } else { 29.7cm }
+  let page-h = if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height }
   let top-bound = deixis-utils.resolve-len(p-margins.top)
   let bottom-bound = deixis-utils.resolve-len(page-h) - deixis-utils.resolve-len(p-margins.bottom)
 
@@ -1362,7 +1362,7 @@
     }
 
     let p-margins = deixis-utils.get-page-margins(S-page)
-    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { 29.7cm })
+    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height })
     let min-y = deixis-utils.resolve-len(p-margins.top)
     let max-y = page-h - deixis-utils.resolve-len(p-margins.bottom)
 
