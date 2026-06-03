@@ -39,7 +39,7 @@ Typeset decoupled annotations, visual connectors, and spatial highlights in [Typ
 
 ### From Typst Universe
 
-This package is available in the Typst Universe, you can download and use it by simply adding the following line to your document.
+This package is available in the [Typst Universe](https://typst.app/universe/package/deixis), you can download and use it by simply adding the following line to your document.
 
 ```typst
 #import "@preview/deixis:0.1.1": *
