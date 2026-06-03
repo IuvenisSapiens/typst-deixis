@@ -255,17 +255,17 @@
                                 <path class="typst-shape" fill="none" stroke="#2ecc40" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="1 1" d="M 0 0m 0.5 0 h 5.0393 c 0.2761426 0 0.5 0.22385763 0.5 0.5 v 7.415 c 0 0.27614212 -0.2238574 0.5 -0.5 0.5 h -5.0393 c -0.27614236 0 -0.5 -0.22385788 -0.5 -0.5 v -7.415 c 0 -0.27614236 0.22385763 -0.5 0.5 -0.5 "/>
                             </g>
                         </g>
-                        <path class="typst-shape" fill="none" stroke="#2ecc40" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="1 1" transform="matrix(1 0 0 1 108.01786216166337 133.23405669291338)" d="M 0 0c 26.666666 0 69.51143 -10.488555 80 0 c 6.7999344 6.799929 5.835762 27.789597 0 33.625355 c -6.3387375 6.3387337 -26.447605 0 -39.671406 0 "/>
-                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 106.81786 133.23405 l 5.199997 -2.5 l -1.5999985 2.5 l 1.5999985 2.5 c 0 0 -5.199997 -2.5 -5.199997 -2.5 Z "/>
-                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 147.14645 166.8594 l 5.199997 -2.5 l -1.5999908 2.5 l 1.5999908 2.5 c 0 0 -5.199997 -2.5 -5.199997 -2.5 Z "/>
+                        <path class="typst-shape" fill="none" stroke="#2ecc40" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" stroke-dashoffset="0" stroke-dasharray="1 1" transform="matrix(1 0 0 1 108.01786216166337 133.23405669291338)" d="M 0 0m 2.2 0 c 25.933332 0 67.513466 -10.286527 77.8 0 c 6.7625885 6.7625837 5.7559204 27.869434 0 33.625355 c -6.076187 6.076187 -24.980938 0 -37.471405 0 "/>
+                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 108.01786 133.23405 l 4 -2.5 l -1.5999985 2.5 l 1.5999985 2.5 c 0 0 -4 -2.5 -4 -2.5 Z "/>
+                        <path class="typst-shape" fill="#2ecc40" fill-rule="nonzero" d="M 0 0m 148.34645 166.8594 l 4 -2.5 l -1.5999908 2.5 l 1.5999908 2.5 c 0 0 -4 -2.5 -4 -2.5 Z "/>
                     </g>
                 </g>
                 <g class="typst-group">
                     <g>
                         <g class="typst-group">
                             <g>
-                                <path class="typst-shape" fill="none" stroke="#0074d9" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 31.846106692913388 36.840656692913385)" d="M 0 0c 0 5 -2.1659436 15.493484 0 20 c 6.934403 14.427891 34.016685 40.88524 50 40 c 17.65062 -0.977581 32.322327 -50 50 -50 v 38.02 c 0 1.3199997 0.66000366 1.9799995 1.9800034 1.9799995 h 58.019997 l 40.831055 -10 "/>
-                                <path class="typst-shape" fill="#0074d9" fill-rule="nonzero" d="M 0 0m 233.30312 76.687355 l -3.9164276 3.5330658 l 0.95936584 -2.8088455 l -2.1487732 -2.0476303 c 0 0 5.105835 1.32341 5.105835 1.32341 Z "/>
+                                <path class="typst-shape" fill="none" stroke="#0074d9" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 31.846106692913388 36.840656692913385)" d="M 0 0c 0 5 -2.1659436 15.493484 0 20 c 6.934403 14.427891 34.016685 40.88524 50 40 c 17.65062 -0.977581 32.322327 -50 50 -50 v 38.02 c 0 1.3199997 0.66000366 1.9799995 1.9800034 1.9799995 h 58.019997 l 38.631058 -10 "/>
+                                <path class="typst-shape" fill="#0074d9" fill-rule="nonzero" d="M 0 0m 232.67717 76.84066 l -3.2904816 3.3797607 l 0.95936584 -2.8088455 l -2.1487732 -2.0476303 c 0 0 4.479889 1.4767151 4.479889 1.4767151 Z "/>
                                 <g class="typst-group" transform="matrix(1 0 0 1 187.24625669291342 26.940656692913382)">
                                     <g>
                                         <path class="typst-shape" fill="none" stroke="#ff4136" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 0 0m 0.75 0 h 4.5393 c 0.41421366 0 0.75 0.33578643 0.75 0.75 v 6.915 c 0 0.41421318 -0.33578634 0.75 -0.75 0.75 h -4.5393 c -0.41421357 0 -0.75 -0.33578682 -0.75 -0.75 v -6.915 c 0 -0.41421357 0.33578643 -0.75 0.75 -0.75 "/>

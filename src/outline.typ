@@ -280,12 +280,12 @@
 
     let m-lbl = extract-field(meta-to-use, "mark-lbl", none)
     let b-lbl = extract-field(meta-to-use, "body-lbl", none)
-    let target-dest = if m-lbl != none { 
-      m-lbl 
-    } else if b-lbl != none { 
-      b-lbl 
-    } else { 
-      n.loc 
+    let target-dest = if m-lbl != none {
+      m-lbl
+    } else if b-lbl != none {
+      b-lbl
+    } else {
+      n.loc
     }
 
     let styles = extract-field(meta-to-use, "styles", (:))
@@ -370,25 +370,25 @@
         {
           set text(size: 0.95em)
           set par(justify: false)
-          
-          if fill != none { 
-            [#c-body #box(width: 1fr, fill)] 
-          } else { 
-            [#c-body #h(1fr)] 
+
+          if fill != none {
+            [#c-body #box(width: 1fr, fill)]
+          } else {
+            [#c-body #h(1fr)]
           }
         },
-        text(size: 0.95em)[#note.loc.page()]
+        text(size: 0.95em)[#note.loc.page()],
       )
 
       outline-items.push(link(note.dest, note.badge))
       outline-items.push(link(note.dest, content-and-page))
     }
     grid(
-        columns: (auto, 1fr), 
-        column-gutter: 0.75em,
-        row-gutter: c-gap,
-        align: (center + top, left + top),
-        ..outline-items
+      columns: (auto, 1fr),
+      column-gutter: 0.75em,
+      row-gutter: c-gap,
+      align: (center + top, left + top),
+      ..outline-items
     )
   }
 }

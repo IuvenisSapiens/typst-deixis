@@ -121,6 +121,7 @@
     "arguments": "foundations/arguments/",
     "function": "foundations/function/",
     "label": "foundations/label/",
+    "location": "introspection/location/",
     "length": "layout/length/",
     "relative": "layout/relative/",
     "alignment": "layout/alignment/",

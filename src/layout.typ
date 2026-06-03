@@ -1165,7 +1165,9 @@
     }
 
     let p-margins = deixis-utils.get-page-margins(current-page)
-    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height })
+    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else {
+      deixis-utils.default-page-size.height
+    })
     let top-bound = deixis-utils.resolve-len(p-margins.top)
     let bottom-bound = page-h - deixis-utils.resolve-len(p-margins.bottom)
 

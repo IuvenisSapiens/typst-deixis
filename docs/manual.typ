@@ -40,6 +40,14 @@
   )
 }
 
+#show link: it => {
+  if type(it.dest) == str {
+    underline(text(fill: rgb("#1668af"), it), offset: 0.1em)
+  } else {
+    it
+  }
+}
+
 #set page(numbering: "1")
 // #set text(font: "Linux Libertine", size: 11pt)
 #set heading(numbering: (..numbers) => {
@@ -301,7 +309,7 @@ This is just a non-exhaustive list of known limitations that might not have a fi
 == Conclusion
 
 #conclusion[
-  The whole package is experimental, a proof of concept.
+  The package is meant to be a proof of concept.
   Do not expect much, as there are always limits to what a hacky Typst package can do.
 
   Plus, having a strong opinion on using native features whenever possible, I hope future Typst versions will provide a more powerful noting mechanism.

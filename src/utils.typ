@@ -28,7 +28,7 @@
   let auto-y = p-h * (2.5 / (default-page-size.height / 1cm))
 
   if m == auto { return (left: auto-x, right: auto-x, top: auto-y, bottom: auto-y) }
-  
+
   if type(m) != dictionary { return (left: m, right: m, top: m, bottom: m) }
 
   let get(key, def) = if key in m and m.at(key) != auto { m.at(key) } else { def }

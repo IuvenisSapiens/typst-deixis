@@ -3,13 +3,11 @@ deixis [![Typst Universe](https://img.shields.io/badge/dynamic/xml?url=https%3A%
 
 Typeset decoupled annotations, visual connectors, and spatial highlights in [Typst](https://typst.app/).
 
-
 <div align="center">
 <img src="assets/logo.svg" width="200px" alt="Ugliest logo ever">
 </div>
 
 `deixis` is a unified layout engine for inline notes, footnotes, endnotes, margin notes, inset notes, and inline spatial highlights with visual connectors.
-
 
 <div align="center">
 <a href="examples/showcase.typ">
@@ -32,6 +30,10 @@ Typeset decoupled annotations, visual connectors, and spatial highlights in [Typ
 - [Cross-reference & bi-directional backlinks](#cross-reference-and-backlink)
 - [Note outline](#note-outline)
 - [Minipage](#minipage)
+
+## News
+
+📖 **[Read the Changelog][changelog]** to see what is new in the latest version!
 
 ## Installation
 
@@ -126,7 +128,9 @@ Note that not all notes have a wrapper function.
 ### Inline Mark and Inline Note
 
 <div align="center">
+<a href="examples/inline-note.typ">
 <img src="assets/gallery/inline-note-1.svg" width="500px" alt="Inline mark and note example">
+</a>
 </div>
 
 <details>
@@ -172,7 +176,9 @@ de son argumentation.
 ### Footnote
 
 <div align="center">
+<a href="examples/footnote.typ">
 <img src="assets/gallery/footnote-1.svg" width="500px" alt="Footnote example">
+</a>
 </div>
 
 <details>
@@ -203,7 +209,9 @@ de son argumentation.
 ### Endnote
 
 <div align="center">
+<a href="examples/endnote.typ">
 <img src="assets/gallery/endnote-1.svg" width="500px" alt="Endnote example">
+</a>
 </div>
 
 <details>
@@ -249,7 +257,9 @@ is added after the label ```typst #box()<split>```.
 ### Margin Note
 
 <div align="center">
+<a href="examples/margin-note.typ">
 <img src="assets/gallery/margin-note-1.svg" width="500px" alt="Margin note example">
+</a>
 </div>
 
 
@@ -305,28 +315,11 @@ is added after the label ```typst #box()<split>```.
 #### Spillover
 
 <div align="center">
-<table>
-<tr>
-  <td align="center">
+<a href="examples/margin-note-spillover.typ">
 <img src="assets/gallery/margin-note-spillover-1.svg" width="500px" alt="Margin note spillover example - page 1">
-  </td>
-</tr>
-<tr>
-  <td align="center">
-  <sub>Page 1</sub>
-  </td>
-</tr>
-<tr>
-  <td align="center">
+<br>
 <img src="assets/gallery/margin-note-spillover-2.svg" width="500px" alt="Margin note spillover example - page 2">
-  </td>
-</tr>
-<tr>
-  <td align="center">
-  <sub>Page 2</sub>
-  </td>
-</tr>
-</table>
+</a>
 </div>
 
 
@@ -372,7 +365,9 @@ if possible
 ### Inset Note
 
 <div align="center">
+<a href="examples/inset-note.typ">
 <img src="assets/gallery/inset-note-1.svg" width="500px" alt="Inset note example">
+</a>
 </div>
 
 <details>
@@ -446,14 +441,16 @@ A region is defined as the minimum rectangle covering an array of input pins, ta
 Each pin holds its own `padding`, defaults to `"text"`, which means to pad the region around it similar to an inline mark with `inline-mode: "box"`.
 
 <div align="center">
+<a href="examples/region-mark-cat-table.typ">
 <img src="assets/gallery/region-mark-cat-table-1.svg" width="500px" alt="Pin placement and region mark example">
+</a>
 </div>
 
 <details>
 <summary><b>Show Typst Source Code</b></summary>
 
 ````typst
-Breakdown of standard #deixis-pin("feline-l")feline#deixis-pin("feline-r") architecture and performance metrics:
+Breakdown of standard #deixis-pin("feline-l")#emoji.cat#[feline]#deixis-pin("feline-r") architecture and performance metrics:
 #deixis-region-mark(
   stroke: none,
   fill: yellow.transparentize(50%),
@@ -502,14 +499,18 @@ Breakdown of standard #deixis-pin("feline-l")feline#deixis-pin("feline-r") archi
   <td width="50%">
 
 <div align="center">
+<a href="examples/region-mark-cat.typ">
 <img src="assets/gallery/region-mark-cat-1.svg" width="500px" alt="Attach pins on image example">
+</a>
 </div>
 
   </td>
   <td width="50%">
 
 <div align="center">
+<a href="examples/region-mark-sigmoid.typ">
 <img src="assets/gallery/region-mark-sigmoid-1.svg" width="500px" alt="Attach pins on equation and raw example">
+</a>
 </div>
 
   </td>
@@ -638,7 +639,9 @@ print(f"Probability:\n{probability}")
 You can use `link-waypoints`, `link-ports`, and `link-marks` to configure the link.
 
 <div align="center">
+<a href="examples/link.typ">
 <img src="assets/gallery/link-1.svg" width="500px" alt="Routing link example">
+</a>
 </div>
 
 <details>
@@ -728,7 +731,9 @@ To update note-specific or component-specific parameters, pass a dictionary with
 It is possible to nest note-scope and component-scope keywords, but not to mix them in the same dictionary.
 
 <div align="center">
+<a href="examples/update-params.typ">
 <img src="assets/gallery/update-params-1.svg" width="500px" alt="Update parameters example">
+</a>
 </div>
 
 <details>
@@ -758,7 +763,9 @@ Update default parameters with ```typst #deixis-set```:
 ### Cross-reference and Backlink
 
 <div align="center">
+<a href="examples/cross-ref.typ">
 <img src="assets/gallery/cross-ref-1.svg" width="500px" alt="Cross-reference and backlink example">
+</a>
 </div>
 
 <details>
@@ -807,7 +814,9 @@ Each note belongs to a counter series.
 All `deixis` notes default to the `"default"` series except for `#deixis-endnote` which default to the `"endnote"` series.
 
 <div align="center">
+<a href="examples/counter.typ">
 <img src="assets/gallery/counter-1.svg" width="500px" alt="Counter and series example">
+</a>
 </div>
 
 <details>
@@ -872,7 +881,9 @@ Counter: \
 ### Note Outline
 
 <div align="center">
+<a href="examples/note-outline.typ">
 <img src="assets/gallery/note-outline-1.svg" width="500px" alt="Note outline example">
+</a>
 </div>
 
 <details>
@@ -921,7 +932,9 @@ Since `deixis` notes are decoupled and each component can target different minip
 - The body dictates the rendering context of the body.
 
 <div align="center">
+<a href="examples/minipage.typ">
 <img src="assets/gallery/minipage-1.svg" width="500px" alt="Minipage example">
+</a>
 </div>
 
 <details>
@@ -963,3 +976,4 @@ This package has some similar functionalities inspired by existing packages:
 MIT licensed, see [LICENSE](LICENSE).
 
 [manual]: docs/manual.pdf
+[changelog]: CHANGELOG.md

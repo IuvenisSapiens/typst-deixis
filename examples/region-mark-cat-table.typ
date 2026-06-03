@@ -4,7 +4,7 @@
 #show: deixis-setup-notes
 #show raw: set text(size: 0.85em)
 
-Breakdown of standard #deixis-pin("feline-l")feline#deixis-pin("feline-r") architecture and performance metrics:
+Breakdown of standard #deixis-pin("feline-l")#emoji.cat#[feline]#deixis-pin("feline-r") architecture and performance metrics:
 #deixis-region-mark(
   stroke: none,
   fill: yellow.transparentize(50%),

@@ -681,11 +681,11 @@
             <g>
                 <g class="typst-group">
                     <g>
-                        <path class="typst-shape" fill="none" stroke="#ff851b" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 195.12145669291337 32.28445669291338)" d="M 0 0h 44.670967 c 1.4666672 0 2.2000008 -0.73333335 2.2000008 -2.2 v -8.932157 "/>
-                        <path class="typst-shape" fill="#ff851b" fill-rule="nonzero" d="M 0 0m 193.92146 32.28446 l 5.199997 -2.500002 l -1.6000061 2.500002 l 1.6000061 2.5 c 0 0 -5.199997 -2.5 -5.199997 -2.5 Z "/>
-                        <path class="typst-shape" fill="#ff851b" fill-rule="nonzero" d="M 0 0m 241.99243 19.9523 l 2.5 5.200001 l -2.5 -1.6000004 l -2.5 1.6000004 c 0 0 2.5 -5.200001 2.5 -5.200001 Z "/>
-                        <path class="typst-shape" fill="none" stroke="#ff4136" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 126.60245669291338 67.11045669291339)" d="M 0 0h 9.5 "/>
-                        <path class="typst-shape" fill="#ff4136" fill-rule="nonzero" d="M 0 0m 125.40246 67.11046 l 5.2000046 -2.5 l -1.6000061 2.5 l 1.6000061 2.5 c 0 0 -5.2000046 -2.5 -5.2000046 -2.5 Z "/>
+                        <path class="typst-shape" fill="none" stroke="#ff851b" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 195.12145669291337 32.28445669291338)" d="M 0 0m 2.2 0 h 42.470966 c 1.4666672 0 2.2000008 -0.73333335 2.2000008 -2.2 v -6.7321568 "/>
+                        <path class="typst-shape" fill="#ff851b" fill-rule="nonzero" d="M 0 0m 195.12146 32.28446 l 4 -2.500002 l -1.6000061 2.500002 l 1.6000061 2.5 c 0 0 -4 -2.5 -4 -2.5 Z "/>
+                        <path class="typst-shape" fill="#ff851b" fill-rule="nonzero" d="M 0 0m 241.99243 21.1523 l 2.5 4 l -2.5 -1.6000004 l -2.5 1.6000004 c 0 0 2.5 -4 2.5 -4 Z "/>
+                        <path class="typst-shape" fill="none" stroke="#ff4136" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="matrix(1 0 0 1 126.60245669291338 67.11045669291339)" d="M 0 0m 2.2 0 h 7.3 "/>
+                        <path class="typst-shape" fill="#ff4136" fill-rule="nonzero" d="M 0 0m 126.602455 67.11046 l 4.0000076 -2.5 l -1.6000061 2.5 l 1.6000061 2.5 c 0 0 -4.0000076 -2.5 -4.0000076 -2.5 Z "/>
                     </g>
                 </g>
             </g>

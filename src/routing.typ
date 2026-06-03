@@ -325,8 +325,10 @@
   // pull back into the arrow's inset notch
   let pullback = calc.max(0.0, (arrow-length - inset-depth) - 0.2) * 1pt
 
-  let pt-first-dir = if clean-wps.len() > 0 { clean-wps.first() } else { end-rel }
-  let pt-last-dir = if clean-wps.len() > 0 { clean-wps.last() } else { (0pt, 0pt) }
+  let coord-wps = clean-wps.filter(x => type(x) == array)
+
+  let pt-first-dir = if coord-wps.len() > 0 { coord-wps.first() } else { end-rel }
+  let pt-last-dir = if coord-wps.len() > 0 { coord-wps.last() } else { (0pt, 0pt) }
 
   let get-start-pullback() = {
     let eff-s-dir = if source-dir == "none" { "vertical" } else { source-dir }
@@ -1127,10 +1129,32 @@
       m-y-attach = box-bottom
       n-attach-y = bottom-bound
     } else {
-      let goes-up = if safe-wps.len() > 0 { safe-wps.first().at(1) < 0pt } else { ideal-y < mark-y }
+      let resolve-peek-y(y-spec, base-y, target-abs-y) = {
+        if type(y-spec) == length { return base-y + y-spec }
+        if type(y-spec) == relative { return base-y + y-spec.length }
+        if type(y-spec) == ratio { return base-y } // Ignored for pre-flight
+        if type(y-spec) == str {
+          if "body" in y-spec or "target" in y-spec or "end" in y-spec { return target-abs-y }
+          if "mark" in y-spec or "source" in y-spec or "start" in y-spec { return base-y }
+        }
+        return base-y
+      }
+
+      let goes-up = ideal-y < mark-y
+      if safe-wps.len() > 0 {
+        let first-y = safe-wps.first().at(1)
+        if type(first-y) == length { goes-up = first-y < 0pt } else if type(first-y) == relative {
+          goes-up = first-y.length < 0pt
+        }
+      }
+
       m-y-attach = if goes-up { box-top } else { box-bottom }
 
-      let last-source-y = if safe-wps.len() > 0 { m-y-attach + safe-wps.last().at(1) } else { m-y-attach }
+      let last-source-y = m-y-attach
+      if safe-wps.len() > 0 {
+        last-source-y = resolve-peek-y(safe-wps.last().at(1), m-y-attach, ideal-y)
+      }
+
       n-attach-y = calc.clamp(last-source-y / 1pt, clamp-min, clamp-max) * 1pt
     }
 
@@ -1411,7 +1435,9 @@
     }
 
     let p-margins = deixis-utils.get-page-margins(S-page)
-    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else { deixis-utils.default-page-size.height })
+    let page-h = deixis-utils.resolve-len(if type(page.height) == length { page.height } else {
+      deixis-utils.default-page-size.height
+    })
     let min-y = deixis-utils.resolve-len(p-margins.top)
     let max-y = page-h - deixis-utils.resolve-len(p-margins.bottom)
 

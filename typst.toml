@@ -11,4 +11,4 @@ repository = "https://github.com/inspiros/typst-deixis"
 keywords = ["layout", "positioning", "mark", "inline-mark", "region-mark", "note", "inline-note", "footnote", "endnote", "margin-note", "sidenote", "inset-note", "pin", "arrow", "draw"]
 categories = ["layout", "utility"]
 compiler = "0.14.0"
-exclude = []
+exclude = ["CHANGELOG.md"]

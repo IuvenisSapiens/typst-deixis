@@ -1,4 +1,4 @@
-#set page(width: 300pt, height: 240pt, margin: (x: 2.5cm, rest: 1cm))
+#set page(width: 300pt, height: 240pt, margin: (x: 2.5cm, rest: 1cm), numbering: "1")
 
 #import "../src/lib.typ": *
 #show: deixis-setup-notes
