@@ -37,7 +37,7 @@ Typeset decoupled annotations, visual connectors, and spatial highlights in [Typ
 
 **[Read the Changelog 📖][changelog]** to see what is new in the latest version!
 
-## Installation
+## 📦 Installation
 
 ### From Typst Universe
 
